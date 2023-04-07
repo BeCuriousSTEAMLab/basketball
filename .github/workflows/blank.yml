@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Basketball Arc Calculator</title>
+	<script>
+		function calculateArc() {
+			// Retrieve the values from the input fields
+			var distance = document.getElementById("distance").value;
+			var height = document.getElementById("height").value;
+			var ballSize = document.getElementById("ballSize").value;
+			
+			// Calculate the optimal launch angle and initial velocity using the quadratic function
+			// Replace the coefficients a, b, and h with the appropriate values for your function
+			var a = -0.00596;
+			var b = 8.27;
+			var h = parseFloat(height);
+			var launchAngle = Math.atan((h + ballSize / 2) / distance) * 180 / Math.PI;
+			var velocity = Math.sqrt((32.2 * distance * distance) / (2 * Math.pow(Math.cos(launchAngle * Math.PI / 180), 2) * (h + ballSize / 2 - distance * Math.tan(launchAngle * Math.PI / 180))));
+			
+			// Display the results
+			document.getElementById("result").innerHTML = "Optimal launch angle: " + launchAngle.toFixed(2) + " degrees<br>Initial velocity: " + velocity.toFixed(2) + " mph";
+		}
+	</script>
+</head>
+<body>
+	<h1>Basketball Arc Calculator</h1>
+	<label for="distance">Distance to hoop (feet):</label>
+	<input type="number" id="distance" name="distance"><br>
+	<label for="height">Shooter height (feet):</label>
+	<input type="number" id="height" name="height"><br>
+	<label for="ballSize">Ball size (inches):</label>
+	<input type="number" id="ballSize" name="ballSize"><br>
+	<button type="button" onclick="calculateArc()">Calculate</button>
+	<p id="result"></p>
+</body>
+</html>
